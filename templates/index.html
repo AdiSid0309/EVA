@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url("/static/background.jpg"); /* Replace "background.jpg" with your background image URL */
+            background-size: cover;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Adding transparency to the chat container */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .user-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .bot-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .bot-message {
+            background-color: #F0F0F0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .chat-history {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-history">
+            {% for message in chat_history %}
+                {% if message.user %}
+                    <div class="message">
+                        <img class="user-img" src="/static/usr.jpg" alt="User Image">
+                        <div class="user-message">{{ message.user }}</div>
+                    </div>
+                {% endif %}
+                {% if message.bot %}
+                    <div class="message">
+                        <div class="bot-message">{{ message.bot }}</div>
+                        <img class="bot-img" src="/static/eva.jpg" alt="Bot Image">
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form method="post" action="/get_answer">
+            <input type="text" name="question" placeholder="Type your question here...">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+</body>
+</html>
